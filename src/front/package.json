@@ -2,9 +2,6 @@
     "name": "blog-sample",
     "version": "0.1.0",
     "private": true,
-    "engines": {
-        "node": "v12.16.3"
-    },
     "dependencies": {
         "@material-ui/core": "^4.9.12",
         "@material-ui/icons": "^4.9.1",
