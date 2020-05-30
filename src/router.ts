@@ -11,4 +11,5 @@ export default express.Router()
     .all(ROUTES.HELP, help)
     .get(ROUTES.ECHO, echo)
     .get(ROUTES.ECHO_WITH_PARAM, echoWithParam)
-    .get(ROUTES.PLUS_ONE, plusOne);
+    .get(ROUTES.PLUS_ONE, plusOne)
+    .get(/\/react\/*/, (req, res) => res.sendFile(__dirname + "/front/build/index.html"));

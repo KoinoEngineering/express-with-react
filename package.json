@@ -6,7 +6,10 @@
     "scripts": {
         "start": "nodemon",
         "test": "test",
-        "build": "tsc",
+        "prebuild": "cd src/front && npm ci && npm run build",
+        "build": "rm -Rf build && tsc",
+        "postbuild": "mkdir build/front && cp -r src/front/build build/front/build",
+        "prod": "npm run build && NODE_ENV=production PORT=3000 node build/index.js",
         "lint": "eslint",
         "lint:fixall": "eslint --fix --ext *.ts ./src/*"
     },
