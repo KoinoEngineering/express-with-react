@@ -1,7 +1,7 @@
 import { Container, createStyles, Grid, makeStyles, Typography, CircularProgress } from "@material-ui/core";
 import React, { useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { RouteComponentProps, withRouter } from "react-router";
+import { RouteComponentProps, withRouter, useParams } from "react-router";
 import { NavLink } from "react-router-dom";
 import { bindActionCreators } from "redux";
 import { State } from "src/interfaces/State";
@@ -28,10 +28,9 @@ const useBodyStyle = makeStyles(createStyles({
 interface ArticleParms {
     id: string;
 }
-interface ArticleProps extends RouteComponentProps<ArticleParms> { }
 
-const Article: React.FC<ArticleProps> = (props) => {
-    const { match: { params: { id } } } = props;
+const Article: React.FC = () => {
+    const { id } = useParams<ArticleParms>();
     const { title, body, created_at, updated_at } = useSelector<State, ArticleState>(state => state.article);
     const { loading } = useSelector<State, ArticlesState>(state => state.articles);
     const rowClases = useRowStyle();
@@ -47,7 +46,7 @@ const Article: React.FC<ArticleProps> = (props) => {
         return () => { actions.setArticle({ id: "", title: "", body: "", created_at: undefined, updated_at: undefined }); };
     }, [actions, id]);
 
-    if (isNaN(Number(props.match.params.id))) {
+    if (isNaN(Number(id))) {
         alert("id が　正しくありません TOPへ戻ります");
         actions.navigate.push(ROUTES.TOP);
     }
@@ -93,4 +92,4 @@ const Article: React.FC<ArticleProps> = (props) => {
     </Container>;
 };
 
-export default withRouter(Article);
+export default Article;
